@@ -66,10 +66,10 @@ export default function Typing() {
 
     // accuracy
     const accuracy = (wordsError, minutes) => {
-        const lengthTexarea = textarea?.length
+        const lengthTexarea = textarea.split(" ").length
         const grossWPM = lengthTexarea / minutes
         const needSpeed = (lengthTexarea - wordsError) / minutes
-
+        
         return Math.round((needSpeed / grossWPM || 0) * 100) + "%"
     }
 
@@ -97,7 +97,6 @@ export default function Typing() {
             setRunTimer(false);
             setCountDown(0);
             setFlag(false)
-            textBoxRef.current.disabled = true
         }
     }, [countDown, runTimer]);
 
@@ -111,6 +110,7 @@ export default function Typing() {
     // show modal result
     let modalShow
     if (!flag) {
+        textBoxRef.current.disabled = true
         modalShow = <Modal>
             <h3 className={`bg-info ${classes.modal__title}`}>Result</h3>
             <div className={classes.modal__result}>
@@ -121,7 +121,7 @@ export default function Typing() {
                     </li>
                     <li>
                         <span>Accuracy: </span>
-                        <span className="font-weight-bold">{accuracy(totalIncorrectWords(), lock) || 0}</span>
+                        <span className="font-weight-bold">{accuracy(totalIncorrectWords(), lock)}</span>
                     </li>
                 </ul>
             </div>
