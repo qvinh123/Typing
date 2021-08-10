@@ -54,7 +54,12 @@ export default function Typing() {
     const totalCorrectWords = () => textarea?.split(" ").filter((word, i) => word === filterFlatData[0][0].quote.split(" ")[i]).length
 
     // total length words incorrect
-    const totalIncorrectWords = () => textarea?.split(" ").filter((word, i) => word !== filterFlatData[0][0].quote.split(" ")[i]).length
+    const totalIncorrectWords = () => {
+        if (textarea) {
+            return textarea.split(" ").filter((word, i) => word !== filterFlatData[0][0].quote.split(" ")[i]).length
+        }
+        return 0
+    }
 
     // total words current per minutes
     const wcpm = (words, minutes) => Math.round(words / minutes)
@@ -64,6 +69,7 @@ export default function Typing() {
         const lengthTexarea = textarea?.length
         const grossWPM = lengthTexarea / minutes
         const needSpeed = (lengthTexarea - wordsError) / minutes
+
         return Math.round((needSpeed / grossWPM || 0) * 100) + "%"
     }
 
@@ -102,9 +108,6 @@ export default function Typing() {
         }
     }, [textarea, filterFlatData])
 
-    const seconds = String(countDown % 60).padStart(2, 0)
-    const minutes = String(Math.floor(countDown / 60)).padStart(2, 0)
-
     // show modal result
     let modalShow
     if (!flag) {
@@ -134,6 +137,9 @@ export default function Typing() {
             </div>
         </Modal>
     }
+
+    const seconds = String(countDown % 60).padStart(2, 0)
+    const minutes = String(Math.floor(countDown / 60)).padStart(2, 0)
 
     return (
         <div className="container">
