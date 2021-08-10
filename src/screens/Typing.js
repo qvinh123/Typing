@@ -24,17 +24,20 @@ export default function Typing() {
     const textBoxRef = useRef();
     const myRefs = useRef([]);
 
+    // onChange textarea
     const onChangeHandler = useCallback((e) => {
         setTextarea(e.target.value)
     }, [])
 
+    // filter data dropdown
     const filterFlatData = useMemo(() => dataTying.filter(data => data.value === textFile).map(data => {
         const random = Math.floor(Math.random() * data.results.length);
         return data.results.filter(item => item.id === random)
     }), [restart])
 
+    // render chars
     let currentNumberChart = 0
-    const render = filterFlatData[0][0]?.quote.split("").map((char, i) => {
+    const renderChars = filterFlatData[0][0]?.quote.split("").map((char, i) => {
         let colorChar = ""
         if (i < textarea?.length) {
             colorChar = char === textarea[i] ? "text-success" : `text-danger ${classes.underline}`
@@ -47,12 +50,16 @@ export default function Typing() {
         return <span ref={(el) => (myRefs.current[i] = el)} key={i} className={colorChar}>{char}</span>
     })
 
+    // total length words correct
     const totalCorrectWords = () => textarea?.split(" ").filter((word, i) => word === filterFlatData[0][0].quote.split(" ")[i]).length
 
+    // total length words incorrect
     const totalIncorrectWords = () => textarea?.split(" ").filter((word, i) => word !== filterFlatData[0][0].quote.split(" ")[i]).length
 
+    // total words current per minutes
     const wcpm = (words, minutes) => Math.round(words / minutes)
 
+    // accuracy
     const accuracy = (wordsError, minutes) => {
         const lengthTexarea = textarea?.length
         const grossWPM = lengthTexarea / minutes
@@ -60,6 +67,7 @@ export default function Typing() {
         return Math.round((needSpeed / grossWPM || 0) * 100) + "%"
     }
 
+    // onClick button start
     const onClickHandler = useCallback(() => {
         textBoxRef.current.disabled = false;
         textBoxRef.current.focus()
@@ -94,6 +102,7 @@ export default function Typing() {
         }
     }, [textarea, filterFlatData])
 
+    // show modal result
     let modalShow
     if (!flag) {
         modalShow = <Modal>
@@ -134,7 +143,7 @@ export default function Typing() {
                     <button className={`btn btn-info ${classes.coundownTime}`}>{minutes}:{seconds}</button>
                     <div className={`${classes['typing__contents--top']} ${view === "all-content" ? classes.showAll : classes.showNewLine}`}>
                         <div style={{ marginTop: `${view !== "all-content" ? currentNumberChart + "px" : null}` }}>
-                            {render}
+                            {renderChars}
                         </div>
                     </div>
 
