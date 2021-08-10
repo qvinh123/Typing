@@ -1,0 +1,108 @@
+.typing__contents {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.typing__contents--top {
+    background-color: white;
+    border-radius: .25rem;
+    overflow: hidden;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.typing__contents--top span {
+    font-size: 24px;
+    letter-spacing: 2px;
+    padding: 3px 0;
+}
+
+.typing__contents--bottom {
+    margin: 15px 0 0;
+}
+
+.typing__contents textarea {
+    resize: none;
+    font-size: 24px;
+    line-height: 1.7;
+    padding: 15px;
+}
+
+.typing__contents textarea:focus {
+    border-color: #ced4da;
+    outline: 0;
+    box-shadow: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.typing__start-btn {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.coundownTime {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.showAll {
+    height: auto;
+    line-height: 1.7;
+    padding: 15px;
+}
+
+.showNewLine {
+    height: 65px;
+    line-height: 65px;
+    padding: 0 15px;
+}
+
+.modal__title {
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    color: white;
+}
+
+.modal__result {
+    padding: 10px;
+}
+
+.modal__result ul {
+    padding: 0;
+    list-style: none;
+}
+
+.modal__result ul li {
+    margin-bottom: 10px;
+}
+
+.modal__result ul li:first-child {
+    text-align: center;
+}
+
+.modal__result ul li:last-child {
+    font-size: 18px;
+}
+
+.modal__result ul li strong {
+    font-size: 32px;
+}
+
+.modal__result ul li small {
+    display: block;
+}
+
+.modal__button {
+    text-align: center;
+    padding: 0 0 20px;
+}
+
+.modal__button button {
+    margin: 0 10px;
+}
