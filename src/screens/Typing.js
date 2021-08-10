@@ -102,6 +102,10 @@ export default function Typing() {
         }
     }, [textarea, filterFlatData])
 
+    const seconds = String(countDown % 60).padStart(2, 0)
+    const minutes = String(Math.floor(countDown / 60)).padStart(2, 0)
+    const minutesResult = countDown / 60
+
     // show modal result
     let modalShow
     if (!flag) {
@@ -110,12 +114,12 @@ export default function Typing() {
             <div className={classes.modal__result}>
                 <ul>
                     <li>
-                        <strong className="text-success">{wcpm(totalCorrectWords(), lock) || 0} WCPM</strong>
+                        <strong className="text-success">{wcpm(totalCorrectWords(), minutesResult) || 0} WCPM</strong>
                         <small>(words correct per minute)</small>
                     </li>
                     <li>
                         <span>Accuracy: </span>
-                        <span className="font-weight-bold">{accuracy(totalIncorrectWords(), lock) || 0}</span>
+                        <span className="font-weight-bold">{accuracy(totalIncorrectWords(), minutesResult) || 0}</span>
                     </li>
                 </ul>
             </div>
@@ -131,9 +135,6 @@ export default function Typing() {
             </div>
         </Modal>
     }
-
-    const seconds = String(countDown % 60).padStart(2, 0)
-    const minutes = String(Math.floor(countDown / 60)).padStart(2, 0)
 
     return (
         <div className="container">
