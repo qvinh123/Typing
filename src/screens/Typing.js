@@ -5,7 +5,7 @@ import classes from "./Typing.module.css"
 import Modal from '../components/Modal'
 
 import { dataTying } from "../assets/dataTyping"
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 export default function Typing() {
     const history = useHistory()
@@ -26,6 +26,7 @@ export default function Typing() {
 
     // onChange textarea
     const onChangeHandler = useCallback((e) => {
+        setRunTimer(true)
         setTextarea(e.target.value)
     }, [])
 
@@ -69,15 +70,12 @@ export default function Typing() {
         const lengthTexarea = textarea.split(" ").length
         const grossWPM = lengthTexarea / minutes
         const needSpeed = (lengthTexarea - wordsError) / minutes
-        
+
         return Math.round((needSpeed / grossWPM || 0) * 100) + "%"
     }
 
-    // onClick button start
-    const onClickHandler = useCallback(() => {
-        textBoxRef.current.disabled = false;
+    useEffect(() => {
         textBoxRef.current.focus()
-        setRunTimer(true)
     }, [])
 
     useEffect(() => {
@@ -110,7 +108,6 @@ export default function Typing() {
     // show modal result
     let modalShow
     if (!flag) {
-        textBoxRef.current.disabled = true
         modalShow = <Modal>
             <h3 className={`bg-info ${classes.modal__title}`}>Result</h3>
             <div className={classes.modal__result}>
@@ -132,7 +129,6 @@ export default function Typing() {
                     setRestart(true)
                     setTextarea("")
                     setCountDown(60 * lock)
-                    textBoxRef.current.disabled = true
                 }} className="btn btn-info"><i className="fas fa-undo"></i> Restart</button>
             </div>
         </Modal>
@@ -154,14 +150,14 @@ export default function Typing() {
                     </div>
 
                     <div className={classes['typing__contents--bottom']}>
-                        <textarea value={textarea} disabled={true} ref={textBoxRef} placeholder="Typing..." onChange={onChangeHandler} className="form-control" rows="3"></textarea>
+                        <textarea value={textarea} ref={textBoxRef} placeholder="Typing..." onChange={onChangeHandler} className="form-control" rows="3"></textarea>
                     </div>
                 </div>
 
                 <div className={classes['typing__start-btn']}>
-                    <button onClick={() => onClickHandler()} className="btn btn-success btn-lg">
-                        Start
-                    </button>
+                    <Link to="/" className="btn btn-success btn-lg">
+                        Cannel
+                    </Link>
                 </div>
             </div>
         </div>
